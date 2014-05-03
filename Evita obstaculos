@@ -1,0 +1,58 @@
+#include <Ultrasonic.h>
+#include<Servo.h>  
+
+      
+    //declaramos un objeto ultrasonic de la la librería Ultrasonic para referirnos a ella.  
+    Ultrasonic ultrasonic(7,8);   
+      
+    //declaramos un objeto miservo de la la libreria Servo para referirnos a ella.  
+    Servo miservo;    
+      
+    int Distancia;  
+      
+    void setup(){  
+      
+        //definimos el pin2 para controlar el servo  
+        miservo.attach(9);  
+      
+        // coloca el servo en su posición central  
+        miservo.write(90);    
+        Serial.begin(9600); 
+    }  
+      
+    void loop(){  
+      
+        //leemos el sensor de ultrasonidos y guardamos el valor en una variable  
+        Distancia = ultrasonic.Ranging(CM);  
+      Serial.print(ultrasonic.Ranging(CM)); // CM or INC
+      Serial.println(" cm" );
+        //si la distancia es menor de 20...  
+        if(Distancia <= 20){  
+      
+            //movemos el servo en una dirección  
+            miservo.write(0);  
+            delay(500);  
+            Serial.println("Mirando a la derecha");
+            int distanciaDcha = ultrasonic.Ranging(CM);  
+            delay(500); 
+            //movemos el servo en dirección opuesta  
+            miservo.write(180);  
+            delay(500);  
+            Serial.println("Mirando a la Izquierda");
+            int distanciaIzq = ultrasonic.Ranging(CM);  
+            delay(500); 
+            
+            if(distanciaDcha < distanciaIzq){
+                Serial.println("Girando a la izquierda");
+              }else if(distanciaDcha > distanciaIzq){
+                Serial.println("Girando a la derecha");            
+              }else{        
+                Serial.println("Sin ruta clara");            
+              }
+            //si no hay nada, vamos mirando de frente  
+            miservo.write(90);  
+        }  
+      
+        delay(500);  
+    }  
+
