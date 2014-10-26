@@ -1,6 +1,6 @@
 #include <Ultrasonic.h>
 #include<Servo.h>  
-
+//Limitar el giro del sensor de 50 a 100;
       
     //declaramos un objeto ultrasonic de la la librería Ultrasonic para referirnos a ella.  
     Ultrasonic ultrasonic(7,8);   
